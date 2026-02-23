@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クエストカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f0ece4;
+    font-family: 'Noto Serif JP', serif;
+    padding: 40px 20px;
+  }
+
+  h1.page-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #5a3a1a;
+    margin-bottom: 40px;
+    letter-spacing: 0.2em;
+  }
+
+  .region-section {
+    margin-bottom: 60px;
+  }
+
+  .region-label {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #888;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 24px;
+    letter-spacing: 0.15em;
+  }
+
+  .cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  /* =================== CARD =================== */
+  .card {
+    width: 300px;
+    background: #fdfaf3;
+    border-radius: 6px;
+    position: relative;
+    padding: 28px 22px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+
+  /* Outer gold border */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 2px solid #c9a227;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Dashed inner border */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1.5px dashed #d4b84a;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Corner stars */
+  .card .corner {
+    position: absolute;
+    font-size: 13px;
+    color: #c9a227;
+    z-index: 2;
+    line-height: 1;
+  }
+  .card .corner.tl { top: 13px; left: 13px; }
+  .card .corner.tr { top: 13px; right: 13px; }
+  .card .corner.bl { bottom: 13px; left: 13px; }
+  .card .corner.br { bottom: 13px; right: 13px; }
+
+  /* Top icon strip */
+  .card-icon {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Card title badge */
+  .card-title-wrap {
+    text-align: center;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-title {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #3d2006;
+    letter-spacing: 0.12em;
+    border-bottom: 2.5px solid #c9a227;
+    padding-bottom: 4px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    background: var(--tag-color, #5a8a3c);
+    color: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+  }
+
+  /* Body text */
+  .card-body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem;
+    color: #3d2006;
+    line-height: 1.75;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 14px;
+  }
+
+  /* Budget reward box */
+  .reward-box {
+    background: linear-gradient(135deg, #fff8e1 0%, #fef3c0 100%);
+    border: 1.5px solid #c9a227;
+    border-radius: 6px;
+    padding: 10px 14px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 14px;
+  }
+
+  .reward-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem;
+    color: #7a5c00;
+    letter-spacing: 0.12em;
+    margin-bottom: 2px;
+  }
+
+  .reward-amount {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #c9a227;
+    letter-spacing: 0.05em;
+  }
+
+  .reward-amount span {
+    font-size: 0.85rem;
+    color: #7a5c00;
+  }
+
+  /* Submission info */
+  .submit-info {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.72rem;
+    color: #888;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    border-top: 1px dashed #d4b84a;
+    padding-top: 8px;
+  }
+
+  /* Decorative bottom dots row */
+  .card-dots {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--accent-color, #5a8a3c) 0 8px, transparent 8px 14px);
+    z-index: 2;
+  }
+
+  /* ========= Color themes per region ========= */
+  .theme-hokkaido   { --tag-color: #3a7bd5; --accent-color: #3a7bd5; }
+  .theme-kanto      { --tag-color: #d44a3a; --accent-color: #d44a3a; }
+  .theme-tokai      { --tag-color: #8a3ad4; --accent-color: #8a3ad4; }
+  .theme-kansai     { --tag-color: #d4a03a; --accent-color: #d4a03a; }
+  .theme-shikoku    { --tag-color: #3aad5c; --accent-color: #3aad5c; }
+
+  /* Budget badge top-right */
+  .budget-badge {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: var(--tag-color, #5a8a3c);
+    color: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    z-index: 3;
+    letter-spacing: 0.08em;
+  }
+
+  /* =========== Print / Export helpers =========== */
+  @media print {
+    body { background: white; }
+    .card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">🗺️ クエストカード一覧</h1>
+
+<!-- ===== 北海道・東北 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 北海道・東北エリア｜当初予算：70,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-hokkaido">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">📜</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">食文化調査員</div>
+      </div>
+      <div class="card-body">
+        地元飲食店の店主に郷土料理・食文化についてヒアリングし、食文化継承に関する調査報告書（A4・1枚）を提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">地域文化調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：調査報告書（A4・1枚以上）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-hokkaido">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">🤝</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">地域連携特使</div>
+      </div>
+      <div class="card-body">
+        旅程に地域おこし協力隊<br>または観光協会との<br>意見交換（1時間以上）を<br>組み込み、記録を提出<br>してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">地域間連携活動費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：意見交換記録（写真または議事メモ）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-hokkaido">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">📱</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">デジタル観光士</div>
+      </div>
+      <div class="card-body">
+        旅行先自治体が提供する<br>公式観光アプリや<br>デジタルスタンプラリーを<br>活用し、全スポット制覇の<br>記録を提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">デジタル推進活用費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：スタンプラリー完了スクリーンショット</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-hokkaido">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">効率化</span>
+      <div class="card-icon">💡</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">効率化クエスト</div><br>
+        <div class="card-title">移動時間の達人</div>
+      </div>
+      <div class="card-body">
+        移動中（新幹線・バス等）の<br>時間を活用して、次の議会に<br>向けた一般質問テーマの<br>検討メモを作成し、<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：一般質問テーマ検討メモ</div>
+      <div class="card-dots"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 関東 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 関東エリア｜当初予算：60,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-kanto">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">🏯</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">文化財調査員</div>
+      </div>
+      <div class="card-body">
+        旅行先の歴史的建造物・<br>文化財の保存状況を視察し、<br>文化財保護施策への<br>提言メモ（5項目以上）を<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">文化財調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：提言メモ（箇条書き5項目以上）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kanto">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">👥</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div>
+        <div class="card-title">共同視察隊</div>
+      </div>
+      <div class="card-body">
+        他の議員・職員と同行し、<br>同一の観光スポットを訪問<br>して意見交換した記録を<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">行政視察共同費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：集合写真または意見交換メモ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kanto">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">💳</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">キャッシュレス旅人</div>
+      </div>
+      <div class="card-body">
+        Suica等の交通系ICカードを<br>活用し、全移動を<br>キャッシュレスで完結させた<br>記録を提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">DX推進活用費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：IC利用履歴スクリーンショット</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kanto">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">効率化</span>
+      <div class="card-icon">⏱️</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">効率化クエスト</div><br>
+        <div class="card-title">隙間時間の活用者</div>
+      </div>
+      <div class="card-body">
+        チェックイン前・<br>チェックアウト後の時間に<br>自治体関連の書類確認や<br>資料整理（1時間以上）を行い、<br>記録を提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">業務効率化推進費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：作業記録または完了報告</div>
+      <div class="card-dots"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 東海・中部・北陸・九州・沖縄 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 東海・中部・北陸・九州・沖縄エリア｜当初予算：50,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-tokai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">♨️</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">観光資源調査員</div>
+      </div>
+      <div class="card-body">
+        温泉施設・観光資源の<br>運営形態（公営・民営等）を<br>調べ、観光振興施策への<br>活用に関する調査メモを<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">観光政策調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：運営形態調査メモ（A4・1枚）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-tokai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">🍜</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">老舗の声を聞く旅</div>
+      </div>
+      <div class="card-body">
+        地元の老舗飲食店の店主と<br>会話し、地域経済・後継者<br>問題について聞き取りした<br>内容をまとめて提出<br>してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">中小企業・商業連携調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：ヒアリング内容まとめ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-tokai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">🎁</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">ふるさと納税研究家</div>
+      </div>
+      <div class="card-body">
+        旅行先のふるさと納税返礼品<br>と旅行体験を紐づけた<br>提案レポートを作成・<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">ふるさと納税活用推進費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：提案レポート（A4・1枚）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-tokai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">効率化</span>
+      <div class="card-icon">💻</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">効率化クエスト</div><br>
+        <div class="card-title">議会改革アイデアマン</div>
+      </div>
+      <div class="card-body">
+        移動・待ち時間を活用して<br>議会のICT化アイデア<br>（ペーパーレス会議・<br>オンライン審議等）を<br>3案以上まとめて提出。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">議会改革推進費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：ICT化アイデア3案以上</div>
+      <div class="card-dots"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 関西・中国 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 関西・中国エリア｜当初予算：40,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-kansai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">🏺</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">伝統産業の探偵</div>
+      </div>
+      <div class="card-body">
+        歴史的町並みや伝統産業<br>（西陣織・備前焼等）の<br>現状を視察し、<br>地域ブランド活用に関する<br>提言を提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">産業振興調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：地域ブランド活用提言メモ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kansai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">🌿</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">市民活動の仲間</div>
+      </div>
+      <div class="card-body">
+        観光ボランティアガイドや<br>地域NPOとの交流<br>（1時間以上）を旅程に組み込み、<br>活動内容の記録を<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">市民活動連携費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：活動記録（写真またはメモ）</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kansai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">🏛️</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">学芸員レクチャー活用士</div>
+      </div>
+      <div class="card-body">
+        博物館・資料館の無料・割引<br>学芸員レクチャーや常設展を<br>活用した記録（感想・<br>活用アイデア含む）を<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">生涯学習活用促進費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：感想・活用アイデアメモ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kansai">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">効率化</span>
+      <div class="card-icon">📸</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">効率化クエスト</div><br>
+        <div class="card-title">広報フォトグラファー</div>
+      </div>
+      <div class="card-body">
+        旅行中に撮影した景観・<br>文化財の写真を<br>自治体SNSや広報紙への<br>活用提案として整理・<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">広報活動効率化費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：写真＋活用提案コメント</div>
+      <div class="card-dots"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 四国 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 四国エリア｜当初予算：30,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-shikoku">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">⛩️</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">お遍路文化探訪者</div>
+      </div>
+      <div class="card-body">
+        お遍路文化や地域の祭りに<br>ついて地域住民に<br>ヒアリングし、観光・文化<br>政策への活用に関する<br>調査メモを提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">地域文化調査費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：ヒアリング調査メモ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-shikoku">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">🌾</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">農家さんとの対話</div>
+      </div>
+      <div class="card-body">
+        道の駅・農産物直売所で<br>生産者と会話し、農業振興・<br>6次産業化に関する意見<br>交換内容をまとめて<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">農業振興連携費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：意見交換内容まとめ</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-shikoku">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">🎫</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">四国パス活用分析士</div>
+      </div>
+      <div class="card-body">
+        四国の広域観光パスや<br>割引クーポンブックを活用し、<br>複数スポットを巡った<br>費用対効果の分析レポートを<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">観光資源活用推進費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：費用対効果分析レポート</div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-shikoku">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">効率化</span>
+      <div class="card-icon">📉</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">効率化クエスト</div><br>
+        <div class="card-title">地方創生プランナー</div>
+      </div>
+      <div class="card-body">
+        移動・待ち時間を活用して<br>人口減少対策に関する<br>政策アイデアを<br>3案以上まとめて<br>提出してください。
+      </div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">地方創生政策効率化費より</div>
+      </div>
+      <div class="submit-info">📋 提出物：人口減少対策アイデア3案以上</div>
+      <div class="card-dots"></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
