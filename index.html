@@ -1,4 +1,4 @@
-n<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -22,13 +22,41 @@ n<!DOCTYPE html>
     letter-spacing: 0.2em;
   }
 
+  h2.supplementary-explanation1{
+    text-align: center;
+    font-size: 1.5rem;
+    color: #5a3a1a;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    letter-spacing: 0.2em;
+  }
+
+    h2.supplementary-explanation2{
+    text-align: center;
+    font-size: 1.0rem;
+    color: #5a3a1a;
+    margin-bottom: 40px;
+    letter-spacing: 0.2em;
+  }
+
+  hr.hr1{
+    border: 0;
+    height: 1px;
+    background:#3d2006;
+    background-image: -webkit-linear-gradient(left, #ccc, #3d2006, #ccc);
+    background-image:    -moz-linear-gradient(left, #ccc, #3d2006, #ccc);
+    background-image:     -ms-linear-gradient(left, #ccc, #3d2006, #ccc);
+    background-image:      -o-linear-gradient(left, #ccc, #3d2006, #ccc);
+    border-bottom: 1px dashed #ccc;
+  }
+
   .region-section {
     margin-bottom: 60px;
   }
 
   .region-label {
     text-align: center;
-    font-size: 2.0rem;
+    font-size: 1.5rem;
     color: #888;
     font-family: 'Noto Sans JP', sans-serif;
     margin-bottom: 24px;
@@ -195,17 +223,18 @@ n<!DOCTYPE html>
   }
 
   /* ========= Color themes per region ========= */
-  .theme-hokkaido   { --tag-color: #3a7bd5; --accent-color: #3a7bd5; }
-  .theme-kanto      { --tag-color: #d44a3a; --accent-color: #d44a3a; }
-  .theme-tokai      { --tag-color: #8a3ad4; --accent-color: #8a3ad4; }
+  .theme-hokkaido   { --tag-color: #54a4aa; --accent-color: #1f8f97; }
+  .theme-kanto      { --tag-color: #00B258; --accent-color: #00B258; }
+  .theme-tokai      { --tag-color: #FF6E00; --accent-color: #FF6E00; }
   .theme-kansai     { --tag-color: #d4a03a; --accent-color: #d4a03a; }
-  .theme-shikoku    { --tag-color: #3aad5c; --accent-color: #3aad5c; }
+  .theme-shikoku    { --tag-color: #6675BC; --accent-color: #6675BC; }
+  .theme-kyushu     { --tag-color: #FA3F4A; --accent-color: #FA3F4A; }
 
   /* Budget badge top-right */
   .budget-badge {
     position: absolute;
-    top: 14px;
-    right: 18px;
+    top: 17px;
+    right: 30px;
     background: var(--tag-color, #5a8a3c);
     color: #fff;
     font-family: 'Noto Sans JP', sans-serif;
@@ -217,6 +246,8 @@ n<!DOCTYPE html>
     letter-spacing: 0.08em;
   }
 
+
+
   /* =========== Print / Export helpers =========== */
   @media print {
     body { background: white; }
@@ -227,6 +258,10 @@ n<!DOCTYPE html>
 <body>
 
 <h1 class="page-title">🗺️ クエストカード一覧</h1>
+<hr class="hr1">
+<h2 class="supplementary-explanation1">説明</h2>
+<h2 class="supplementary-explanation2">今回はエリアごとに当初予算をつけています。<br>ですが、実際に調べていくにあたり当初予算を超えることもあると思います。<br><br>そのような時には超過した予算を補うために他の予算を削り、<br>予算を削ることで発生した不利益の解消が未来自治体では求められます。<br><br>ここでこの「クエストカード」では、予算増額（他の予算を削って得られる予算）<br>を認め、当初予算の上限を増やそうという試みです。<br><br>スライド研修では予算を発表してもらうことになりますが、<br>どのクエストを達成させて当初予算がどのように変更されたかは記載するようにしましょう</h2>
+<hr class="hr1"><br>
 
 <!-- ===== 北海道・東北 ===== -->
 <div class="region-section">
@@ -240,15 +275,15 @@ n<!DOCTYPE html>
       <div class="card-icon">📜</div>
       <div class="card-title-wrap">
         <div class="card-tag">調査クエスト</div><br>
-        <div class="card-title">食文化調査員</div>
+        <div class="card-title">食文化調査</div>
       </div>
       <div class="card-body">
-        東かがわ市の地域創生課より地元飲食店の店主に郷土料理についてヒアリングし、食文化継承に関する調査報告書の募集依頼があった。<br>旅行プラン内に郷土料理を食べる機会があれば以下の予算増額を認める。（食費は予算より計上すること）
+        市の地域創生課より、日本全国地元飲食店の店主に郷土料理についてヒアリングし、食文化継承に関するヒントを得たいとの依頼があった。<br>旅行プラン内に郷土料理を食べる機会があれば以下の予算増額を認める。（食費は予算より計上すること）
       </div>
       <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">時間確保で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">地域創生課より</div>
       </div>
       <div class="card-dots"></div>
@@ -264,12 +299,12 @@ n<!DOCTYPE html>
         <div class="card-title">地域連携特使</div>
       </div>
       <div class="card-body">
-        地域おこし協力隊または観光協会との意見交換（1時間以上）をしてくれる東かがわ市の議員を総務部が募集していた。<br>旅程にこの時間を含められる場合以下の予算増額を認める。
+        地域おこし協力隊または観光協会との意見交換（1時間以上）をしてくれる市の議員を総務部が募集していた。<br>旅程に意見交換のための時間（1時間）を確保できる場合以下の予算増額を認める。なお、そのための交通費などは考慮しないこととする。
       </div>
       <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-amount">＋25,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">総務課より</div>
       </div>
       <div class="card-dots"></div>
@@ -285,13 +320,13 @@ n<!DOCTYPE html>
         <div class="card-title">デジタル観光士</div>
       </div>
       <div class="card-body">
-        旅行先自治体こばや市が提供する公式観光アプリやデジタルスタンプラリーを活用し、全スポット制覇の記録を提出することで以下の金額を贈呈するキャンペーンをしていた。<br>これに参加し、追加予算をもらおう！
+        旅行先の前田市（架空の自治体）が提供する公式観光アプリやデジタルスタンプラリーを活用し、全スポット制覇の記録を提出することで以下の金額を贈呈するキャンペーンをしていた。<br>これに参加する時間1時間を確保し、追加予算をもらおう！
       </div>
            <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">こばや市デジタル推進活用課より</div>
+        <div class="reward-label" style="margin-top:2px;">前田市デジタル推進活用課より</div>
       </div>
      <div class="card-dots"></div>
     </div>
@@ -306,7 +341,7 @@ n<!DOCTYPE html>
         <div class="card-title">移動時間の達人</div>
       </div>
       <div class="card-body">
-        自由に散策している時間があれば、一般質問で聞こうとしていた第一次産業を営む人への補助金のニーズを現地の人にヒアリングすることができる。<br>よって政務活動費として以下の予算増額を認める。
+        自由に散策している時間があれば、一般質問で聞こうとしていた第一次産業を営む人への補助金のニーズを現地の人にヒアリングすることができる。<br>よって散策の時間（最低1時間）があれば政務活動費として以下の予算増額を認める。
       </div>
            <div class="submit-info"></div>
       <div class="reward-box">
@@ -332,17 +367,17 @@ n<!DOCTYPE html>
       <div class="card-icon">🏯</div>
       <div class="card-title-wrap">
         <div class="card-tag">調査クエスト</div><br>
-        <div class="card-title">文化財調査員</div>
+        <div class="card-title">文化財調査</div>
       </div>
       <div class="card-body">
-        旅行先の歴史的建造物・文化財の保存状況を視察し、文化財保護施策への提言メモ（5項目以上）を提出してください。
+        旅行先の歴史的建造物・文化財の保存状況における工夫を視察し、文化財保護施策への提言メモを作成することで政務活動費の活用を試みる。<br>よって視察の時間（1.5時間）を確保できれば以下の予算増額を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">文化財調査費より</div>
       </div>
-      <div class="submit-info">📋 提出物：提言メモ（箇条書き5項目以上）</div>
       <div class="card-dots"></div>
     </div>
 
@@ -352,18 +387,19 @@ n<!DOCTYPE html>
       <span class="budget-badge">連携</span>
       <div class="card-icon">👥</div>
       <div class="card-title-wrap">
-        <div class="card-tag">連携クエスト</div>
-        <div class="card-title">共同視察隊</div>
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">共同視察</div>
       </div>
       <div class="card-body">
-        他の議員・職員と同行し、同一の観光スポットを訪問して意見交換した記録を提出してください。
+        他の議員と視察に行く時間を確保し、同一の観光地を訪問して意見交換した記録する時間を導入して予算を獲得しよう！<br>
+        共同視察の時間4時間の確保ができれば以下の予算増額を認める。（なお他の議員の費用は考慮しなくて構わない）
       </div>
+            <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">行政視察共同費より</div>
       </div>
-      <div class="submit-info">📋 提出物：集合写真または意見交換メモ</div>
       <div class="card-dots"></div>
     </div>
 
@@ -377,14 +413,14 @@ n<!DOCTYPE html>
         <div class="card-title">キャッシュレス旅人</div>
       </div>
       <div class="card-body">
-        Suica等の交通系ICカードを<br>活用し、全移動を<br>キャッシュレスで完結させた<br>記録を提出してください。
+        交通会社が作った新規交通系ICカードを活用し、全移動をICカードで完結させるプロモーションへの参加者を交通会社が募集していた。<br>キャッシュレスの移動手段に限定されるが、達成できれば以下の予算を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">DX推進活用費より</div>
+        <div class="reward-label" style="margin-top:2px;">交通会社より</div>
       </div>
-      <div class="submit-info">📋 提出物：IC利用履歴スクリーンショット</div>
       <div class="card-dots"></div>
     </div>
 
@@ -398,23 +434,23 @@ n<!DOCTYPE html>
         <div class="card-title">隙間時間の活用者</div>
       </div>
       <div class="card-body">
-        チェックイン前・<br>チェックアウト後の時間に<br>自治体関連の書類確認や<br>資料整理（1時間以上）を行い、<br>記録を提出してください。
+        旅程の空き時間で、関東にある調査会社に依頼しようとしたことを2時間で自分の力で済ませる。本来なら調査会社に依頼するはずの料金が『浮いた外注費』となるため、その金額をこの旅行プランの予算に加えることができる。
       </div>
+         <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">業務効率化推進費より</div>
+        <div class="reward-amount">＋20,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">浮いた外注費より</div>
       </div>
-      <div class="submit-info">📋 提出物：作業記録または完了報告</div>
       <div class="card-dots"></div>
     </div>
 
   </div>
 </div>
 
-<!-- ===== 東海・中部・北陸・九州・沖縄 ===== -->
+<!-- ===== 東海・甲信越・北陸 ===== -->
 <div class="region-section">
-  <div class="region-label">📍 東海・中部・北陸・九州・沖縄エリア｜当初予算：50,000円</div>
+  <div class="region-label">📍 東海・甲信越・北陸エリア｜当初予算：50,000円</div>
   <div class="cards-grid">
 
     <div class="card theme-tokai">
@@ -427,14 +463,14 @@ n<!DOCTYPE html>
         <div class="card-title">観光資源調査員</div>
       </div>
       <div class="card-body">
-        温泉施設・観光資源の<br>運営形態（公営・民営等）を<br>調べ、観光振興施策への<br>活用に関する調査メモを<br>提出してください。
+        松本市（架空の自治体）観光振興課がプロモーション参加者を募集していた。<br>山口議員には特別に温泉に入ってお風呂上がりに30分のインタビューに答えてくださるだけで以下の報酬費をくださるそう。（温泉費は予算より計上）
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">観光政策調査費より</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">松本市観光振興課より</div>
       </div>
-      <div class="submit-info">📋 提出物：運営形態調査メモ（A4・1枚）</div>
       <div class="card-dots"></div>
     </div>
 
@@ -442,20 +478,20 @@ n<!DOCTYPE html>
       <span class="corner tl">★</span><span class="corner tr">★</span>
       <span class="corner bl">★</span><span class="corner br">★</span>
       <span class="budget-badge">連携</span>
-      <div class="card-icon">🍜</div>
+      <div class="card-icon">🛖</div>
       <div class="card-title-wrap">
         <div class="card-tag">連携クエスト</div><br>
         <div class="card-title">老舗の声を聞く旅</div>
       </div>
       <div class="card-body">
-        地元の老舗飲食店の店主と<br>会話し、地域経済・後継者<br>問題について聞き取りした<br>内容をまとめて提出<br>してください。
+      市が地域経済・後継者問題への対処のため、日本各地の老舗飲食店への聞き取りの委託先を探していた。<br>旅程に老舗飲食店の店主と会話する時間2時間を確保し、地域経済・後継者問題についてニーズ調査をしてみよう！
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">中小企業・商業連携調査費より</div>
+        <div class="reward-label" style="margin-top:2px;">市委託事業費より</div>
       </div>
-      <div class="submit-info">📋 提出物：ヒアリング内容まとめ</div>
       <div class="card-dots"></div>
     </div>
 
@@ -466,17 +502,17 @@ n<!DOCTYPE html>
       <div class="card-icon">🎁</div>
       <div class="card-title-wrap">
         <div class="card-tag">活用クエスト</div><br>
-        <div class="card-title">ふるさと納税研究家</div>
+        <div class="card-title">ふるさと納税探求</div>
       </div>
       <div class="card-body">
-        旅行先のふるさと納税返礼品<br>と旅行体験を紐づけた<br>提案レポートを作成・<br>提出してください。
+        市から魅力度の高いふるさと納税返礼品の調査依頼があった。旅行先のふるさと納税返礼品が日本で売上NO.1であったため、旅行のついでにその理由を見てこよう！2時間半ほど旅程にこの時間を確保できれば以下の予算増加を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">ふるさと納税活用推進費より</div>
       </div>
-      <div class="submit-info">📋 提出物：提案レポート（A4・1枚）</div>
       <div class="card-dots"></div>
     </div>
 
@@ -484,20 +520,20 @@ n<!DOCTYPE html>
       <span class="corner tl">★</span><span class="corner tr">★</span>
       <span class="corner bl">★</span><span class="corner br">★</span>
       <span class="budget-badge">効率化</span>
-      <div class="card-icon">💻</div>
+      <div class="card-icon">🌲</div>
       <div class="card-title-wrap">
         <div class="card-tag">効率化クエスト</div><br>
-        <div class="card-title">議会改革アイデアマン</div>
+        <div class="card-title">ペーパーレスQ</div>
       </div>
       <div class="card-body">
-        移動・待ち時間を活用して<br>議会のICT化アイデア<br>（ペーパーレス会議・<br>オンライン審議等）を<br>3案以上まとめて提出。
+        紙の消費による林業の負担・環境への配慮・予算削減のため、一般質問する予定のICT化アイデアをまとめようと考えた。林業及び環境について調べるため、登山・林業が有名な場所への移動があればついでに聞き込みをしてみよう。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">議会改革推進費より</div>
+        <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
-      <div class="submit-info">📋 提出物：ICT化アイデア3案以上</div>
       <div class="card-dots"></div>
     </div>
 
@@ -519,35 +555,35 @@ n<!DOCTYPE html>
         <div class="card-title">伝統産業の探偵</div>
       </div>
       <div class="card-body">
-        歴史的町並みや伝統産業<br>（西陣織・備前焼等）の<br>現状を視察し、<br>地域ブランド活用に関する<br>提言を提出してください。
+        市から市内にある歴史的町並みや伝統産業をもとに地域ブランド活用のヒントが欲しいとの依頼があった。歴史的町並みや伝統産業（西陣織・備前焼等）の現状を視察する旅程があれば以下の予算を認める。
       </div>
+            <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">産業振興調査費より</div>
+        <div class="reward-label" style="margin-top:2px;">市産業振興課より</div>
       </div>
-      <div class="submit-info">📋 提出物：地域ブランド活用提言メモ</div>
       <div class="card-dots"></div>
     </div>
 
     <div class="card theme-kansai">
       <span class="corner tl">★</span><span class="corner tr">★</span>
       <span class="corner bl">★</span><span class="corner br">★</span>
-      <span class="budget-badge">連携</span>
-      <div class="card-icon">🌿</div>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">🍙</div>
       <div class="card-title-wrap">
-        <div class="card-tag">連携クエスト</div><br>
-        <div class="card-title">市民活動の仲間</div>
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">地産地消の旅</div>
       </div>
       <div class="card-body">
-        観光ボランティアガイドや<br>地域NPOとの交流<br>（1時間以上）を旅程に組み込み、<br>活動内容の記録を<br>提出してください。
+        関西・中国地方の雑誌「ぐるぐるメニュー」（架空の雑誌）が地産地消の旅プランと写真提供の募集をしていた。<br>この旅行での食事はすべて旅先ににちなんだものになるが、それを達成できれば以下の予算の増額を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">市民活動連携費より</div>
+        <div class="reward-label" style="margin-top:2px;">「ぐるぐるメニュー」編集部より</div>
       </div>
-      <div class="submit-info">📋 提出物：活動記録（写真またはメモ）</div>
       <div class="card-dots"></div>
     </div>
 
@@ -558,17 +594,17 @@ n<!DOCTYPE html>
       <div class="card-icon">🏛️</div>
       <div class="card-title-wrap">
         <div class="card-tag">活用クエスト</div><br>
-        <div class="card-title">学芸員レクチャー活用士</div>
+        <div class="card-title">学芸員レクチャー</div>
       </div>
       <div class="card-body">
-        博物館・資料館の無料・割引<br>学芸員レクチャーや常設展を<br>活用した記録（感想・<br>活用アイデア含む）を<br>提出してください。
+        旅行先の地方自治体が、その地域の博物館・資料館が学芸員の研修を積極的に行っており、山口さんが芸員に対してアドバイスをすることで以下の謝金をくださると提案してくださった。<br>博物館・資料館へ行くことが必須となる代わりに達成したら以下の謝金ゲット！
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">生涯学習活用促進費より</div>
       </div>
-      <div class="submit-info">📋 提出物：感想・活用アイデアメモ</div>
       <div class="card-dots"></div>
     </div>
 
@@ -582,14 +618,14 @@ n<!DOCTYPE html>
         <div class="card-title">広報フォトグラファー</div>
       </div>
       <div class="card-body">
-        旅行中に撮影した景観・<br>文化財の写真を<br>自治体SNSや広報紙への<br>活用提案として整理・<br>提出してください。
+        旅行先の自治体が旅行中に撮影した景観・文化財の写真を自治体SNSや広報紙への写真として募集していた。<br>観光地を基本は3つ以上、大阪府・京都府については5つ以上回ることが必須になるが、このお題をクリアすれば以下の予算贈呈を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">広報活動効率化費より</div>
       </div>
-      <div class="submit-info">📋 提出物：写真＋活用提案コメント</div>
       <div class="card-dots"></div>
     </div>
 
@@ -611,14 +647,14 @@ n<!DOCTYPE html>
         <div class="card-title">お遍路文化探訪者</div>
       </div>
       <div class="card-body">
-        お遍路文化や地域の祭りに<br>ついて地域住民に<br>ヒアリングし、観光・文化<br>政策への活用に関する<br>調査メモを提出してください。
+        お遍路文化について地域住民にヒアリングし、観光・文化政策への活用につなげる一般質問に結びつけようと考えた。<br>この旅行の意義が四国内のお遍路文化に注目されるため、四国のうち2県以上を調査する必要があるが、達成できれば以下の予算増額を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">地域文化調査費より</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
-      <div class="submit-info">📋 提出物：ヒアリング調査メモ</div>
       <div class="card-dots"></div>
     </div>
 
@@ -632,14 +668,14 @@ n<!DOCTYPE html>
         <div class="card-title">農家さんとの対話</div>
       </div>
       <div class="card-body">
-        道の駅・農産物直売所で<br>生産者と会話し、農業振興・<br>6次産業化に関する意見<br>交換内容をまとめて<br>提出してください。
+        道の駅などの農産物直売所で生産者と会話し、作物を育てるところから販売までの流れ、農業振興・6次産業化に関する意見交換をしてみよう。<br>移動手段が車に限定され、農家さんと話すための時間（2時間）を旅程で確保できれば、以下の追加予算を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
-        <div class="reward-label" style="margin-top:2px;">農業振興連携費より</div>
+        <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
-      <div class="submit-info">📋 提出物：意見交換内容まとめ</div>
       <div class="card-dots"></div>
     </div>
 
@@ -650,17 +686,17 @@ n<!DOCTYPE html>
       <div class="card-icon">🎫</div>
       <div class="card-title-wrap">
         <div class="card-tag">活用クエスト</div><br>
-        <div class="card-title">四国パス活用分析士</div>
+        <div class="card-title">交通キャンペーン分析</div>
       </div>
       <div class="card-body">
-        四国の広域観光パスや<br>割引クーポンブックを活用し、<br>複数スポットを巡った<br>費用対効果の分析レポートを<br>提出してください。
+        四国の交通会社が提供している臨時キャンペーンがあり、その交通手段で複数スポットを巡ろう。<br>費用対効果の分析レポートを交通会社に提出すること（当日提出）でJR四国管轄の一日乗車券を旅の日数分を無料+以下の予算の増額を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">観光資源活用推進費より</div>
       </div>
-      <div class="submit-info">📋 提出物：費用対効果分析レポート</div>
       <div class="card-dots"></div>
     </div>
 
@@ -673,18 +709,111 @@ n<!DOCTYPE html>
         <div class="card-tag">効率化クエスト</div><br>
         <div class="card-title">地方創生プランナー</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-body">
-        移動・待ち時間を活用して<br>人口減少対策に関する<br>政策アイデアを<br>3案以上まとめて<br>提出してください。
+        香川県内複数の自治体を周り、人口減少対策及び人口増加に対する政策アイデアのヒントを探してみよう。<br>香川県内自治体を3つ以上回ること・香川県内の移動に限られるが、達成できれば以下の追加予算を認める。
       </div>
+      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
-        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-amount">＋30,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">地方創生政策効率化費より</div>
       </div>
-      <div class="submit-info">📋 提出物：人口減少対策アイデア3案以上</div>
       <div class="card-dots"></div>
     </div>
 
+    <!-- =====九州・沖縄 ===== -->
+<div class="region-section">
+  <div class="region-label">📍 九州・沖縄エリア｜当初予算：50,000円</div>
+  <div class="cards-grid">
+
+    <div class="card theme-kyushu">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">♨️</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">観光資源調査員</div>
+      </div>
+      <div class="card-body">
+        こばや市（架空の自治体）観光振興課がプロモーション参加者を募集していた。<br>山口議員には特別に温泉に入ってお風呂上がりに30分のインタビューに答えてくださるだけで以下の報酬費をくださるそう。（温泉費は予算より計上）
+      </div>
+      <div class="submit-info"></div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">こばや市観光振興課より</div>
+      </div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kyushu">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">連携</span>
+      <div class="card-icon">🐬</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">連携クエスト</div><br>
+        <div class="card-title">水族館調査</div>
+      </div>
+      <div class="card-body">
+      市が地域経済への対処・若者に選ばれる町の実現のため、日本各地の水族館への聞き取りの委託先を探していた。<br>旅程に水族館の館長と会話する時間2時間を確保し、地域経済への影響力と若者の来客数について調査をしてみよう！
+      </div>
+      <div class="submit-info"></div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋15,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">市委託事業費より</div>
+      </div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kyushu">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">活用</span>
+      <div class="card-icon">🎁</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">活用クエスト</div><br>
+        <div class="card-title">ふるさと納税探求</div>
+      </div>
+      <div class="card-body">
+        市から魅力度の高いふるさと納税の調査依頼があった。旅行先のふるさと納税返礼品が日本で人気NO.1であったため、旅行のついでにその理由を見てこよう！2時間半ほど旅程にこの時間を確保できれば以下の予算増加を認める。
+      </div>
+      <div class="submit-info"></div>
+      <div class="reward-box">
+        <div class="reward-label">達成で予算増額</div>
+        <div class="reward-amount">＋5,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">ふるさと納税活用推進費より</div>
+      </div>
+      <div class="card-dots"></div>
+    </div>
+
+    <div class="card theme-kyushu">
+      <span class="corner tl">★</span><span class="corner tr">★</span>
+      <span class="corner bl">★</span><span class="corner br">★</span>
+      <span class="budget-badge">調査</span>
+      <div class="card-icon">📜</div>
+      <div class="card-title-wrap">
+        <div class="card-tag">調査クエスト</div><br>
+        <div class="card-title">伝統工芸品調査</div>
+      </div>
+      <div class="card-body">
+        市の地域創生課より、日本の伝統工芸品の技術継承に関するヒントを得たいとの依頼があった。<br>旅行プラン内に伝統工芸品に触れる機会があれば以下の予算増額を認める。（体験ツアーの参加費は予算より計上すること）
+      </div>
+      <div class="submit-info"></div>
+      <div class="reward-box">
+        <div class="reward-label">時間確保で予算増額</div>
+        <div class="reward-amount">＋10,000<span>円</span></div>
+        <div class="reward-label" style="margin-top:2px;">地域創生課より</div>
+      </div>
+      <div class="card-dots"></div>
+    </div>
+    </div>
+
+  </div>
+</div>
   </div>
 </div>
 
