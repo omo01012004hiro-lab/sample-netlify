@@ -5,8 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>クエストカード</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<!-- 🔧 fix: rel="stylesheet" を追加 -->
+<link href="css1.css" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    animation: fadeInUp 0.6s ease-out backwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  }
+
+  .card:hover .card-icon {
+    animation: iconBounce 0.5s ease infinite alternate;
+  }
+
+  @keyframes iconBounce {
+    from { transform: scale(1); }
+    to   { transform: scale(1.2); }
+  }
+
+  .reward-amount { transition: color 0.3s ease; }
+  .card:hover .reward-amount {
+    color: #e2b000;
+    text-shadow: 0 0 8px rgba(201, 162, 39, 0.3);
+  }
 
   body {
     background: #f0ece4;
@@ -22,7 +60,7 @@
     letter-spacing: 0.2em;
   }
 
-  h2.supplementary-explanation1{
+  h2.supplementary-explanation1 {
     text-align: center;
     font-size: 1.5rem;
     color: #5a3a1a;
@@ -31,7 +69,7 @@
     letter-spacing: 0.2em;
   }
 
-    h2.supplementary-explanation2{
+  h2.supplementary-explanation2 {
     text-align: center;
     font-size: 1.0rem;
     color: #5a3a1a;
@@ -39,20 +77,15 @@
     letter-spacing: 0.2em;
   }
 
-  hr.hr1{
+  hr.hr1 {
     border: 0;
     height: 1px;
-    background:#3d2006;
-    background-image: -webkit-linear-gradient(left, #ccc, #3d2006, #ccc);
-    background-image:    -moz-linear-gradient(left, #ccc, #3d2006, #ccc);
-    background-image:     -ms-linear-gradient(left, #ccc, #3d2006, #ccc);
-    background-image:      -o-linear-gradient(left, #ccc, #3d2006, #ccc);
+    background: #3d2006;
+    background-image: linear-gradient(left, #ccc, #3d2006, #ccc);
     border-bottom: 1px dashed #ccc;
   }
 
-  .region-section {
-    margin-bottom: 60px;
-  }
+  .region-section { margin-bottom: 60px; }
 
   .region-label {
     text-align: center;
@@ -81,7 +114,6 @@
     overflow: hidden;
   }
 
-  /* Outer gold border */
   .card::before {
     content: '';
     position: absolute;
@@ -92,7 +124,6 @@
     z-index: 1;
   }
 
-  /* Dashed inner border */
   .card::after {
     content: '';
     position: absolute;
@@ -103,7 +134,6 @@
     z-index: 1;
   }
 
-  /* Corner stars */
   .card .corner {
     position: absolute;
     font-size: 13px;
@@ -116,7 +146,6 @@
   .card .corner.bl { bottom: 13px; left: 13px; }
   .card .corner.br { bottom: 13px; right: 13px; }
 
-  /* Top icon strip */
   .card-icon {
     text-align: center;
     font-size: 2rem;
@@ -125,7 +154,6 @@
     z-index: 2;
   }
 
-  /* Card title badge */
   .card-title-wrap {
     text-align: center;
     margin-bottom: 14px;
@@ -156,7 +184,6 @@
     margin-bottom: 6px;
   }
 
-  /* Body text */
   .card-body {
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 0.85rem;
@@ -168,7 +195,6 @@
     margin-bottom: 14px;
   }
 
-  /* Budget reward box */
   .reward-box {
     background: linear-gradient(135deg, #fff8e1 0%, #fef3c0 100%);
     border: 1.5px solid #c9a227;
@@ -200,7 +226,6 @@
     color: #7a5c00;
   }
 
-  /* Submission info */
   .submit-info {
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 0.72rem;
@@ -212,7 +237,6 @@
     padding-top: 8px;
   }
 
-  /* Decorative bottom dots row */
   .card-dots {
     position: absolute;
     bottom: 0;
@@ -222,15 +246,14 @@
     z-index: 2;
   }
 
-  /* ========= Color themes per region ========= */
-  .theme-hokkaido   { --tag-color: #54a4aa; --accent-color: #1f8f97; }
-  .theme-kanto      { --tag-color: #00B258; --accent-color: #00B258; }
-  .theme-tokai      { --tag-color: #FF6E00; --accent-color: #FF6E00; }
-  .theme-kansai     { --tag-color: #d4a03a; --accent-color: #d4a03a; }
-  .theme-shikoku    { --tag-color: #6675BC; --accent-color: #6675BC; }
-  .theme-kyushu     { --tag-color: #FA3F4A; --accent-color: #FA3F4A; }
+  /* ========= Color themes ========= */
+  .theme-hokkaido { --tag-color: #54a4aa; --accent-color: #1f8f97; }
+  .theme-kanto    { --tag-color: #00B258; --accent-color: #00B258; }
+  .theme-tokai    { --tag-color: #FF6E00; --accent-color: #FF6E00; }
+  .theme-kansai   { --tag-color: #d4a03a; --accent-color: #d4a03a; }
+  .theme-shikoku  { --tag-color: #6675BC; --accent-color: #6675BC; }
+  .theme-kyushu   { --tag-color: #FA3F4A; --accent-color: #FA3F4A; }
 
-  /* Budget badge top-right */
   .budget-badge {
     position: absolute;
     top: 17px;
@@ -246,16 +269,139 @@
     letter-spacing: 0.08em;
   }
 
-
-
-  /* =========== Print / Export helpers =========== */
   @media print {
     body { background: white; }
     .card { page-break-inside: avoid; }
   }
+
+  /* ===== Modal ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+  }
+
+  .modal-content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 320px;
+    max-height: 90vh;
+    margin: 0 auto;
+    overflow-y: auto;
+    background: transparent;
+    padding: 10px;
+    -webkit-overflow-scrolling: touch;
+    animation: modalZoom 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(0.8);
+  }
+
+  @keyframes modalZoom {
+    to { transform: scale(1.0); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    font-family: sans-serif;
+  }
+
+  .challenge-btn {
+    display: block;
+    width: 300px;
+    margin: 15px auto 0;
+    padding: 12px;
+    background: #c9a227;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .challenge-btn:hover { background: #a6851d; }
+
+  .answer-area {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 15px auto;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .answer-area textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 2px solid #c9a227;
+    border-radius: 8px;
+    background-color: #fdfaf3;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.9rem;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    resize: none;
+    box-sizing: border-box;
+  }
+
+  .submit-answer-btn {
+    margin-top: 10px;
+    background: #3d2006;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .cancel-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  .modal-content-wrapper .card {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
+
+<!-- 🔧 fix: modal を <body> 内に移動 -->
+<div id="card-modal" class="modal-overlay">
+  <div class="modal-content-wrapper">
+    <span class="modal-close">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
 
 <h1 class="page-title">🗺️ クエストカード一覧</h1>
 <hr class="hr1">
@@ -280,12 +426,12 @@
       <div class="card-body">
         市の地域創生課より、日本全国地元飲食店の店主に郷土料理についてヒアリングし、食文化継承に関するヒントを得たいとの依頼があった。<br>旅行プラン内に郷土料理を食べる機会があれば以下の予算増額を認める。（食費は予算より計上すること）
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">時間確保で予算増額</div>
         <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">地域創生課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -301,12 +447,12 @@
       <div class="card-body">
         地域おこし協力隊または観光協会との意見交換（1時間以上）をしてくれる市の議員を総務部が募集していた。<br>旅程に意見交換のための時間（1時間）を確保できる場合以下の予算増額を認める。なお、そのための交通費などは考慮しないこととする。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋25,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">総務課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -322,13 +468,13 @@
       <div class="card-body">
         旅行先の前田市（架空の自治体）が提供する公式観光アプリやデジタルスタンプラリーを活用し、全スポット制覇の記録を提出することで以下の金額を贈呈するキャンペーンをしていた。<br>これに参加する時間1時間を確保し、追加予算をもらおう！
       </div>
-           <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">前田市デジタル推進活用課より</div>
       </div>
-     <div class="card-dots"></div>
+      <div class="submit-info"></div>
+      <div class="card-dots"></div>
     </div>
 
     <div class="card theme-hokkaido">
@@ -343,12 +489,12 @@
       <div class="card-body">
         自由に散策している時間があれば、一般質問で聞こうとしていた第一次産業を営む人への補助金のニーズを現地の人にヒアリングすることができる。<br>よって散策の時間（最低1時間）があれば政務活動費として以下の予算増額を認める。
       </div>
-           <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -372,12 +518,12 @@
       <div class="card-body">
         旅行先の歴史的建造物・文化財の保存状況における工夫を視察し、文化財保護施策への提言メモを作成することで政務活動費の活用を試みる。<br>よって視察の時間（1.5時間）を確保できれば以下の予算増額を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">文化財調査費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -394,12 +540,12 @@
         他の議員と視察に行く時間を確保し、同一の観光地を訪問して意見交換した記録する時間を導入して予算を獲得しよう！<br>
         共同視察の時間4時間の確保ができれば以下の予算増額を認める。（なお他の議員の費用は考慮しなくて構わない）
       </div>
-            <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">行政視察共同費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -415,12 +561,12 @@
       <div class="card-body">
         交通会社が作った新規交通系ICカードを活用し、全移動をICカードで完結させるプロモーションへの参加者を交通会社が募集していた。<br>キャッシュレスの移動手段に限定されるが、達成できれば以下の予算を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">交通会社より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -436,12 +582,12 @@
       <div class="card-body">
         旅程の空き時間で、関東にある調査会社に依頼しようとしたことを2時間で自分の力で済ませる。本来なら調査会社に依頼するはずの料金が『浮いた外注費』となるため、その金額をこの旅行プランの予算に加えることができる。
       </div>
-         <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋20,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">浮いた外注費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -465,12 +611,12 @@
       <div class="card-body">
         松本市（架空の自治体）観光振興課がプロモーション参加者を募集していた。<br>山口議員には特別に温泉に入ってお風呂上がりに30分のインタビューに答えてくださるだけで以下の報酬費をくださるそう。（温泉費は予算より計上）
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">松本市観光振興課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -484,14 +630,14 @@
         <div class="card-title">老舗の声を聞く旅</div>
       </div>
       <div class="card-body">
-      市が地域経済・後継者問題への対処のため、日本各地の老舗飲食店への聞き取りの委託先を探していた。<br>旅程に老舗飲食店の店主と会話する時間2時間を確保し、地域経済・後継者問題についてニーズ調査をしてみよう！
+        市が地域経済・後継者問題への対処のため、日本各地の老舗飲食店への聞き取りの委託先を探していた。<br>旅程に老舗飲食店の店主と会話する時間2時間を確保し、地域経済・後継者問題についてニーズ調査をしてみよう！
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">市委託事業費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -507,12 +653,12 @@
       <div class="card-body">
         市から魅力度の高いふるさと納税返礼品の調査依頼があった。旅行先のふるさと納税返礼品が日本で売上NO.1であったため、旅行のついでにその理由を見てこよう！2時間半ほど旅程にこの時間を確保できれば以下の予算増加を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">ふるさと納税活用推進費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -528,12 +674,12 @@
       <div class="card-body">
         紙の消費による林業の負担・環境への配慮・予算削減のため、一般質問する予定のICT化アイデアをまとめようと考えた。林業及び環境について調べるため、登山・林業が有名な場所への移動があればついでに聞き込みをしてみよう。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -557,12 +703,12 @@
       <div class="card-body">
         市から市内にある歴史的町並みや伝統産業をもとに地域ブランド活用のヒントが欲しいとの依頼があった。歴史的町並みや伝統産業（西陣織・備前焼等）の現状を視察する旅程があれば以下の予算を認める。
       </div>
-            <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">市産業振興課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -578,12 +724,12 @@
       <div class="card-body">
         関西・中国地方の雑誌「ぐるぐるメニュー」（架空の雑誌）が地産地消の旅プランと写真提供の募集をしていた。<br>この旅行での食事はすべて旅先ににちなんだものになるが、それを達成できれば以下の予算の増額を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">「ぐるぐるメニュー」編集部より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -599,12 +745,12 @@
       <div class="card-body">
         旅行先の地方自治体が、その地域の博物館・資料館が学芸員の研修を積極的に行っており、山口さんが芸員に対してアドバイスをすることで以下の謝金をくださると提案してくださった。<br>博物館・資料館へ行くことが必須となる代わりに達成したら以下の謝金ゲット！
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">生涯学習活用促進費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -620,12 +766,12 @@
       <div class="card-body">
         旅行先の自治体が旅行中に撮影した景観・文化財の写真を自治体SNSや広報紙への写真として募集していた。<br>観光地を基本は3つ以上、大阪府・京都府については5つ以上回ることが必須になるが、このお題をクリアすれば以下の予算贈呈を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">広報活動効率化費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -633,6 +779,7 @@
 </div>
 
 <!-- ===== 四国 ===== -->
+<!-- 🔧 fix: 九州セクションが四国の中にネストされていたのを修正 -->
 <div class="region-section">
   <div class="region-label">📍 四国エリア｜当初予算：30,000円</div>
   <div class="cards-grid">
@@ -649,12 +796,12 @@
       <div class="card-body">
         お遍路文化について地域住民にヒアリングし、観光・文化政策への活用につなげる一般質問に結びつけようと考えた。<br>この旅行の意義が四国内のお遍路文化に注目されるため、四国のうち2県以上を調査する必要があるが、達成できれば以下の予算増額を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -670,12 +817,12 @@
       <div class="card-body">
         道の駅などの農産物直売所で生産者と会話し、作物を育てるところから販売までの流れ、農業振興・6次産業化に関する意見交換をしてみよう。<br>移動手段が車に限定され、農家さんと話すための時間（2時間）を旅程で確保できれば、以下の追加予算を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">政務活動費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -691,12 +838,12 @@
       <div class="card-body">
         四国の交通会社が提供している臨時キャンペーンがあり、その交通手段で複数スポットを巡ろう。<br>費用対効果の分析レポートを交通会社に提出すること（当日提出）でJR四国管轄の一日乗車券を旅の日数分を無料+以下の予算の増額を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">観光資源活用推進費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -709,20 +856,22 @@
         <div class="card-tag">効率化クエスト</div><br>
         <div class="card-title">地方創生プランナー</div>
       </div>
-      <div class="submit-info"></div>
       <div class="card-body">
         香川県内複数の自治体を周り、人口減少対策及び人口増加に対する政策アイデアのヒントを探してみよう。<br>香川県内自治体を3つ以上回ること・香川県内の移動に限られるが、達成できれば以下の追加予算を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋30,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">地方創生政策効率化費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
-    <!-- =====九州・沖縄 ===== -->
+  </div>
+</div>
+
+<!-- ===== 九州・沖縄 ===== -->
 <div class="region-section">
   <div class="region-label">📍 九州・沖縄エリア｜当初予算：50,000円</div>
   <div class="cards-grid">
@@ -739,12 +888,12 @@
       <div class="card-body">
         こばや市（架空の自治体）観光振興課がプロモーション参加者を募集していた。<br>山口議員には特別に温泉に入ってお風呂上がりに30分のインタビューに答えてくださるだけで以下の報酬費をくださるそう。（温泉費は予算より計上）
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">こばや市観光振興課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -758,14 +907,14 @@
         <div class="card-title">水族館調査</div>
       </div>
       <div class="card-body">
-      市が地域経済への対処・若者に選ばれる町の実現のため、日本各地の水族館への聞き取りの委託先を探していた。<br>旅程に水族館の館長と会話する時間2時間を確保し、地域経済への影響力と若者の来客数について調査をしてみよう！
+        市が地域経済への対処・若者に選ばれる町の実現のため、日本各地の水族館への聞き取りの委託先を探していた。<br>旅程に水族館の館長と会話する時間2時間を確保し、地域経済への影響力と若者の来客数について調査をしてみよう！
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋15,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">市委託事業費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -781,12 +930,12 @@
       <div class="card-body">
         市から魅力度の高いふるさと納税の調査依頼があった。旅行先のふるさと納税返礼品が日本で人気NO.1であったため、旅行のついでにその理由を見てこよう！2時間半ほど旅程にこの時間を確保できれば以下の予算増加を認める。
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">達成で予算増額</div>
         <div class="reward-amount">＋5,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">ふるさと納税活用推進費より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
 
@@ -802,20 +951,136 @@
       <div class="card-body">
         市の地域創生課より、日本の伝統工芸品の技術継承に関するヒントを得たいとの依頼があった。<br>旅行プラン内に伝統工芸品に触れる機会があれば以下の予算増額を認める。（体験ツアーの参加費は予算より計上すること）
       </div>
-      <div class="submit-info"></div>
       <div class="reward-box">
         <div class="reward-label">時間確保で予算増額</div>
         <div class="reward-amount">＋10,000<span>円</span></div>
         <div class="reward-label" style="margin-top:2px;">地域創生課より</div>
       </div>
+      <div class="submit-info"></div>
       <div class="card-dots"></div>
     </div>
-    </div>
 
   </div>
 </div>
-  </div>
-</div>
 
+<script>
+// ============================================================
+// ✉️ Formspree設定
+// 手順：
+//   1. https://formspree.io/ でアカウント登録
+//   2. 「New Form」を作成して受信したいメールアドレスを設定
+//   3. 発行された Endpoint ID（例: xpwzabcd）を下記に貼り付ける
+// ============================================================
+const FORMSPREE_ENDPOINT = 'xqedwrpa'; // ← ここだけ書き換えればOK
+
+document.addEventListener('DOMContentLoaded', () => {
+  const modal     = document.getElementById('card-modal');
+  const modalBody = document.getElementById('modal-body');
+  const closeBtn  = document.querySelector('.modal-close');
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', function () {
+      if (window.navigator.vibrate) window.navigator.vibrate(50);
+
+      // クエスト名を取得
+      const questTitle = this.querySelector('.card-title')?.innerText ?? '不明なクエスト';
+      const questArea  = this.closest('.region-section')?.querySelector('.region-label')?.innerText ?? '不明なエリア';
+
+      // カードをコピーしてモーダルに表示
+      const clone = this.cloneNode(true);
+      modalBody.innerHTML = '';
+      modalBody.appendChild(clone);
+
+      // 挑戦ボタン＋回答エリアを追加
+      const wrapper = document.createElement('div');
+      wrapper.style.width = '100%';
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.alignItems = 'center';
+      wrapper.innerHTML = `
+        <button class="challenge-btn">このクエストに挑戦する！</button>
+        <div class="answer-area">
+          <p style="color:#fdfaf3; margin-bottom:8px; font-size:0.85rem; letter-spacing:0.05em;">回答を記述してください</p>
+          <textarea placeholder="ここに解決策や気づきを入力..."></textarea>
+          <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+            <button class="submit-answer-btn">回答を提出して完了</button>
+            <button class="cancel-btn">入力をやめて戻る</button>
+          </div>
+          <p class="send-status" style="margin-top:10px; font-size:0.8rem; color:#fdfaf3; min-height:1.2em;"></p>
+        </div>
+      `;
+      modalBody.appendChild(wrapper);
+
+      const challengeBtn = wrapper.querySelector('.challenge-btn');
+      const answerArea   = wrapper.querySelector('.answer-area');
+      const cancelBtn    = wrapper.querySelector('.cancel-btn');
+      const submitBtn    = wrapper.querySelector('.submit-answer-btn');
+      const statusMsg    = wrapper.querySelector('.send-status');
+
+      challengeBtn.addEventListener('click', () => {
+        challengeBtn.style.display = 'none';
+        answerArea.style.display   = 'block';
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        answerArea.style.display   = 'none';
+        challengeBtn.style.display = 'block';
+      });
+
+      submitBtn.addEventListener('click', async () => {
+        const answer = wrapper.querySelector('textarea').value.trim();
+
+        if (!answer) {
+          statusMsg.style.color = '#ffcccc';
+          statusMsg.textContent = '⚠️ 回答を入力してください。';
+          return;
+        }
+
+        // Formspree未設定チェック
+        if (FORMSPREE_ENDPOINT === 'YOUR_FORM_ID') {
+          statusMsg.style.color = '#ffcccc';
+          statusMsg.textContent = '⚠️ Formspreeのエンドポイントがまだ設定されていません。';
+          return;
+        }
+
+        submitBtn.disabled    = true;
+        submitBtn.textContent = '送信中...';
+        statusMsg.textContent = '';
+
+        try {
+          const res = await fetch(`https://formspree.io/f/${FORMSPREE_ENDPOINT}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              エリア:       questArea,
+              クエスト名:   questTitle,
+              回答内容:     answer,
+            }),
+          });
+
+          if (res.ok) {
+            statusMsg.style.color = '#aaffaa';
+            statusMsg.textContent = '✅ 回答を送信しました！';
+            setTimeout(() => { modal.style.display = 'none'; }, 1500);
+          } else {
+            throw new Error('送信失敗');
+          }
+        } catch {
+          statusMsg.style.color = '#ffcccc';
+          statusMsg.textContent = '❌ 送信に失敗しました。通信環境を確認してください。';
+          submitBtn.disabled    = false;
+          submitBtn.textContent = '回答を提出して完了';
+        }
+      });
+
+      modal.style.display = 'flex';
+    });
+  });
+
+  const closeModal = () => { modal.style.display = 'none'; };
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+});
+</script>
 </body>
 </html>
